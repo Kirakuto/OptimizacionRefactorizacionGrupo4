@@ -10,18 +10,19 @@ package grupo4entornos;
  */
 public class SistemaTienda {
 
-    // Listas paralelas (Olor: Primitive Obsession)
-    private String[] productos = {"Camiseta", "Pantalon", "Zapatos"};
-    private int[] stocks = {50, 20, 10};
-    private double[] precios = {15.99, 29.99, 59.99};
+    // Refactorizado: se elimina Primitive Obsession usando la clase Producto
+    private Producto[] productos = {
+        new Producto("Camiseta", 50, 15.99),
+        new Producto("Pantalon", 20, 29.99),
+        new Producto("Zapatos",  10, 59.99)
+    };
 
     public void venderProducto(String nombre, int cantidad) {
-        for (int i = 0; i < productos.length; i++) {
-            if (productos[i].equals(nombre)) {
-                // DUPLICACIÓN DE LÓGICA: Verificación de stock
-                if (stocks[i] >= cantidad) {
-                    stocks[i] -= cantidad;
-                    double total = cantidad * precios[i];
+        for (Producto producto : productos) {
+            if (producto.getNombre().equals(nombre)) {
+                if (producto.getStock() >= cantidad) {
+                    producto.setStock(producto.getStock() - cantidad);
+                    double total = cantidad * producto.getPrecio();
 
                     // Lógica de Impuestos (refactorizada)
                     double conIva = calcularPrecioFinal(total);
@@ -35,9 +36,9 @@ public class SistemaTienda {
     }
 
     public void generarFactura(String nombre, int cantidad) {
-        for (int i = 0; i < productos.length; i++) {
-            if (productos[i].equals(nombre)) {
-                double base = cantidad * precios[i];
+        for (Producto producto : productos) {
+            if (producto.getNombre().equals(nombre)) {
+                double base = cantidad * producto.getPrecio();
 
                 // Cálculo del IVA refactorizado
                 double totalFactura = calcularPrecioFinal(base);
