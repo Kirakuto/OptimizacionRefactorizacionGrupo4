@@ -52,9 +52,4 @@ public class SistemaTienda {
     private double calcularPrecioFinal(double base) {
         return base * 1.21;
     }
-
-    public void logError(String msg) {
-        // Este método no pertenece a la lógica de tienda (Falta de cohesión)
-        System.out.println("[LOG DISCO]: " + msg);
-    }
 }
