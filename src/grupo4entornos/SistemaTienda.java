@@ -23,8 +23,8 @@ public class SistemaTienda {
                     stocks[i] -= cantidad;
                     double total = cantidad * precios[i];
 
-                    // Lógica de Impuestos (Duplicada en generarFactura)
-                    double conIva = total * 1.21;
+                    // Lógica de Impuestos (refactorizada)
+                    double conIva = calcularPrecioFinal(total);
 
                     System.out.println("Venta realizada: " + conIva);
                 } else {
@@ -39,12 +39,17 @@ public class SistemaTienda {
             if (productos[i].equals(nombre)) {
                 double base = cantidad * precios[i];
 
-                // DUPLICACIÓN DE LÓGICA: El cálculo del IVA es el mismo
-                double totalFactura = base * 1.21;
+                // Cálculo del IVA refactorizado
+                double totalFactura = calcularPrecioFinal(base);
 
                 System.out.println("FACTURA: " + nombre + " Cant: " + cantidad + " Total: " + totalFactura);
             }
         }
+    }
+
+    // Método extraído para eliminar código duplicado del cálculo del IVA
+    private double calcularPrecioFinal(double base) {
+        return base * 1.21;
     }
 
     public void logError(String msg) {
